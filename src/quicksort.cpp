@@ -1,4 +1,10 @@
 #include "quicksort.h" 
+#include "event.h"
+
+Quicksort::Quicksort(std::vector<Event>& events)
+    : m_events{events}
+{
+}
 
 void Quicksort::sort(std::vector<int>& arr)
 {   
@@ -45,10 +51,12 @@ int Quicksort::partition(std::vector<int>& arr, int left, int right)
         {
             i++;
             swap(arr.at(i), arr.at(j));
+            m_events.push_back(Event{EventType::SWAP, i, j});
         }
     }
     i++;
     swap(arr.at(i), arr.at(right));
+    m_events.push_back(Event{EventType::SWAP, i, right});
 
     return i; 
 }
