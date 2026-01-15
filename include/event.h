@@ -4,7 +4,8 @@
 enum class EventType 
 {
     SWAP,
-    COMPARE
+    COMPARE,
+    INIT
 };
 
 struct Event 
