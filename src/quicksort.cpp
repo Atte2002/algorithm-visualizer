@@ -1,9 +1,10 @@
 #include "quicksort.h" 
 #include "event.h"
+#include <algorithm>
 
 Quicksort::Quicksort(std::vector<Event>& events)
     : m_events{events}
-{
+{ 
 }
 
 void Quicksort::sort(std::vector<int>& arr)
@@ -13,7 +14,13 @@ void Quicksort::sort(std::vector<int>& arr)
         return;
     }
     else 
-    {
+    {   
+        // Put original vector positions to front of the events array
+        for(int i = 0; i < static_cast<int>(arr.size()); i++)
+        {
+            m_events.push_back(Event{EventType::INIT, i, arr.at(i)});
+        }
+
         quicksort(arr, 0, arr.size() - 1);
     }
 }
@@ -32,14 +39,6 @@ void Quicksort::quicksort(std::vector<int>& arr, int left, int right)
     }
 }
 
-void Quicksort::swap(int& x, int& y)
-{
-    int temp;
-    temp = x;
-    x = y;
-    y = temp;
-}
-
 int Quicksort::partition(std::vector<int>& arr, int left, int right)
 {
     int pivot = arr.at(right);
@@ -50,12 +49,12 @@ int Quicksort::partition(std::vector<int>& arr, int left, int right)
         if(arr.at(j) < pivot)
         {
             i++;
-            swap(arr.at(i), arr.at(j));
+            std::swap(arr.at(i), arr.at(j));
             m_events.push_back(Event{EventType::SWAP, i, j});
         }
     }
     i++;
-    swap(arr.at(i), arr.at(right));
+    std::swap(arr.at(i), arr.at(right));
     m_events.push_back(Event{EventType::SWAP, i, right});
 
     return i; 
