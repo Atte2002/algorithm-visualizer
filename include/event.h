@@ -5,7 +5,8 @@ enum class EventType
 {
     SWAP,
     COMPARE,
-    INIT
+    INIT,
+    WRITE
 };
 
 struct Event 
