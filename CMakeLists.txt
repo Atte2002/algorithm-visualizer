@@ -19,6 +19,7 @@ add_executable(algorithm-visualizer
     src/quicksort.cpp
     src/visualizer.cpp
     src/app.cpp
+    src/mergesort.cpp
 )
 
 target_include_directories(algorithm-visualizer PRIVATE include)
