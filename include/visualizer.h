@@ -1,14 +1,23 @@
 #ifndef VISUALIZER_H
 #define VISUALIZER_H
 
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "event.h"
 
+enum class State 
+{
+    Active,
+    Inactive
+};
+
 struct Element 
 { 
     int value;
+    sf::Color color;
+    bool active;
 };
 
 class Visualizer 

@@ -1,5 +1,6 @@
 #include "app.h"
 #include "quicksort.h"
+#include "mergesort.h"
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include "constants.h"
@@ -35,8 +36,11 @@ void App::handleEvents()
 void App::load(std::vector<int>& arr)
 { 
     m_events.clear();    
-    Quicksort qs(m_events);
-    qs.sort(arr);
+    //Quicksort qs(m_events);
+    //qs.sort(arr);
+     
+    Mergesort ms(m_events);
+    ms.sort(arr);
 
     m_visualizer.load(m_events);
 }

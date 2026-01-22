@@ -1,8 +1,10 @@
 #include "visualizer.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <algorithm>
 #include "constants.h"
+#include "event.h"
 
 void Visualizer::load(const std::vector<Event>& events)
 {
@@ -14,7 +16,7 @@ void Visualizer::load(const std::vector<Event>& events)
         // Save initial positions
         if(event.type == EventType::INIT)
         {
-            m_currentPositions.push_back(Element{event.y});
+            m_currentPositions.push_back(Element{event.y, sf::Color::Cyan, false});
         }
     } 
 }
@@ -34,12 +36,16 @@ void Visualizer::playBack()
     auto event = m_events->at(m_eventIndex);
 
     if(event.type == EventType::SWAP)
-    {   
+    {    
         std::swap(m_currentPositions.at(event.x), m_currentPositions.at(event.y));
+    }
+    else if(event.type == EventType::WRITE)
+    {
+       m_currentPositions.at(event.x).value = event.y; 
     }
 
     m_eventIndex++;
-    sf::sleep(sf::milliseconds(50));
+    sf::sleep(sf::milliseconds(30));
 }
 
 void Visualizer::draw(sf::RenderTarget& target) const
@@ -60,11 +66,10 @@ void Visualizer::drawBar(const Element& element, int index, sf::RenderTarget& ta
     sf::RectangleShape rect({barWidth - barOutline, height});
     rect.setOutlineThickness(barOutline);
     rect.setOutlineColor(sf::Color::Black);
-    rect.setPosition(x_pos, constants::windowHeight - height);
+    rect.setPosition(x_pos, windowHeight - height);
     rect.setFillColor(sf::Color::Green);
     target.draw(rect);
 }
-
 
 
 
